@@ -34,17 +34,37 @@
 
 ## 📦 安装
 
-> 在 dsh `0.1.5-rc.2` 上开发验证。一条命令装完（包自带 bundle patch，自动挂进 profile 的 bundle 层），然后重启 `dsh web` 生效：
+> 在 dsh `0.1.5-rc.2` 上开发验证。一条命令装完（包自带 bundle patch，自动挂进 profile 的 bundle 层），重启 `dsh web` 后刷新页面生效。
+
+### 前置条件（先确认这两样）
+
+```sh
+# ① dsh 可用 —— 没有全局安装？用 npx 姿势即可（下同，所有 dsh 命令都适用）
+dsh --version                   # 全局安装了 dsh
+npx @deepseek-ai/dsh --version  # 只用 npx 跑 dsh —— 完全等价
+
+# ② pnpm 在 PATH 上 —— dsh 的插件管理器会调用它，缺了会报
+#    "pnpm was not found; install pnpm and make it available on PATH"
+npm install -g pnpm             # 或 brew install pnpm / corepack enable pnpm
+```
+
+### 安装命令
 
 ```sh
 # 从 npm 安装（推荐）
-dsh plugin --profile web add dsh-plugin-session-emoji -w
+npx @deepseek-ai/dsh plugin --profile web add dsh-plugin-session-emoji -w
 
 # 或从 GitHub 直接安装
-dsh plugin --profile web add git+https://github.com/cholf5/dsh-plugin-session-emoji.git -w
+npx @deepseek-ai/dsh plugin --profile web add git+https://github.com/cholf5/dsh-plugin-session-emoji.git -w
 ```
 
 重启 `dsh web` 后刷新页面即可。看到「装了没变化」？——运行中的进程仍加载旧代码，**必须重启**。
+
+安装完可以探针确认（401 = 已装上并被认证围栏拦下，404 = 没装上）：
+
+```sh
+curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:3080/api/session-emoji
+```
 
 <details>
 <summary>命令末尾的 <code>-w</code> 是什么</summary>
@@ -54,9 +74,13 @@ profile 目录是一个 pnpm workspace，pnpm 9+ 向 workspace 根添加依赖�
 </details>
 
 <details>
-<summary>手动安装（不用 <code>dsh plugin</code> 的场景）</summary>
+<summary>没有 pnpm，也不想装？手动回退</summary>
 
-把包放进 `~/.dsh/profiles/web/node_modules/`（symlink 或 pnpm 均可），再往 `~/.dsh/profiles/web/cordis.patch.yml` 手动加一行 insert：
+```sh
+git clone https://github.com/cholf5/dsh-plugin-session-emoji.git ~/.dsh/profiles/web/node_modules/dsh-plugin-session-emoji
+```
+
+然后把 `~/.dsh/profiles/web/cordis.patch.yml` 编辑成下面这个最终状态（⚠️ 如果文件里现在是 `[]`，直接替换掉那一行，不要在 `[]` 后面追加）：
 
 ```yaml
 - insert:
@@ -64,19 +88,30 @@ profile 目录是一个 pnpm workspace，pnpm 9+ 向 workspace 根添加依赖�
       name: dsh-plugin-session-emoji
 ```
 
-`patchReload: live` 会热加载这行补丁，无需重启。仅推荐在调试时使用；正常流程走上面的 `dsh plugin` 即可。
+运行中的 dsh 会热加载这行补丁（patch 文件被实时 watch），刷新浏览器页面即可，无需重启。
 
 </details>
+
+### 常见问题
+
+| 现象 | 原因与解决 |
+|---|---|
+| `dsh: command not found` | 你用的是 npx 姿势 —— 所有命令前缀 `npx @deepseek-ai/dsh` |
+| `pnpm was not found`（exit 127） | `npm install -g pnpm`，或用上面的手动回退 |
+| `ERR_PNPM_ADDING_TO_ROOT` | 命令漏了末尾的 `-w` |
+| 装完界面没变化 | 重启 `dsh web`（bundle 层不热重载），再刷新页面 |
 
 ### 更新 / 卸载
 
 ```sh
-# 更新（git 安装时重新拉最新 commit）
-dsh plugin --profile web update dsh-plugin-session-emoji -w
+# 更新
+npx @deepseek-ai/dsh plugin --profile web update dsh-plugin-session-emoji -w
 
 # 卸载（自动从 bundle 层移除）
-dsh plugin --profile web remove dsh-plugin-session-emoji -w
+npx @deepseek-ai/dsh plugin --profile web remove dsh-plugin-session-emoji -w
 ```
+
+重启 `dsh web` 后生效。
 
 ### 本机开发
 
@@ -84,7 +119,7 @@ dsh plugin --profile web remove dsh-plugin-session-emoji -w
 
 ```sh
 cd /path/to/dsh-plugin-session-emoji
-dsh plugin --profile web add link:./ -w
+npx @deepseek-ai/dsh plugin --profile web add link:./ -w
 ```
 
 
