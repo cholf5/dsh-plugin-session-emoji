@@ -1,0 +1,29 @@
+{
+  "name": "dsh-plugin-session-emoji",
+  "description": "Sidebar session emoji prefixes for the dsh web GUI: an externally attached emoji in front of every session title, set via a row context menu, persisted host-side under $DSH_HOME/storages.",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "author": "cholf5 <cholf5@hotmail.com>",
+  "homepage": "https://github.com/cholf5/dsh-plugin-session-emoji#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cholf5/dsh-plugin-session-emoji.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cholf5/dsh-plugin-session-emoji/issues"
+  }
+}
