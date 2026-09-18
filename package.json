@@ -2,7 +2,6 @@
   "name": "dsh-plugin-session-emoji",
   "description": "Sidebar session emoji prefixes for the dsh web GUI: an externally attached emoji in front of every session title, set via a row context menu, persisted host-side under $DSH_HOME/storages.",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
   "license": "MIT",
   "main": "lib/index.js",
@@ -11,7 +10,27 @@
     "./client": "./lib/client.js",
     "./package.json": "./package.json"
   },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "emoji",
+    "sidebar",
+    "web-gui"
+  ],
   "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
     "client": {
       "platform": "web",
       "inject": []
@@ -21,7 +40,7 @@
   "homepage": "https://github.com/cholf5/dsh-plugin-session-emoji#readme",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/cholf5/dsh-plugin-session-emoji.git"
+    "url": "git+https://github.com/cholf5/dsh-plugin-session-emoji.git"
   },
   "bugs": {
     "url": "https://github.com/cholf5/dsh-plugin-session-emoji/issues"

@@ -1,0 +1,8 @@
+# The dsh-plugin-session-emoji bundle patch: adds the plugin's Loader row to
+# any profile that installs this package. Applied in dsh.profile.bundles
+# order, after the built-in bundle layers and before the profile's own
+# cordis.patch.yml.
+
+- insert:
+    - id: session-emoji
+      name: dsh-plugin-session-emoji
