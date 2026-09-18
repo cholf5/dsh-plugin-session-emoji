@@ -7,7 +7,7 @@
 像飞书云文档那样 —— emoji 挂在会话标题前面，但不属于标题文本。<br>
 重命名、搜索、导出、模型上下文，通通不受影响。
 
-<img src="assets/preview.png" width="480" alt="dsh 侧栏会话 emoji 效果预览"/>
+<img src="https://raw.githubusercontent.com/cholf5/dsh-plugin-session-emoji/main/assets/preview.png" width="480" alt="dsh 侧栏会话 emoji 效果预览"/>
 
 <sub>dsh Web 侧栏 · 会话行右键设置 · 主机侧持久化</sub>
 
