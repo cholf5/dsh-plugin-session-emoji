@@ -11,6 +11,7 @@
 
 <sub>dsh Web 侧栏 · 会话行右键设置 · 主机侧持久化</sub>
 
+[![npm](https://img.shields.io/npm/v/dsh-plugin-session-emoji?color=cb3837&label=npm)](https://www.npmjs.com/package/dsh-plugin-session-emoji)
 [![dsh](https://img.shields.io/badge/dsh-0.1.5--rc.2-1f6feb)](https://www.npmjs.com/package/@deepseek-ai/dsh)
 [![license](https://img.shields.io/badge/license-MIT-2da44e)](LICENSE)
 [![platform](https://img.shields.io/badge/platform-web%20GUI-f0883e)](#-安装)
@@ -36,10 +37,10 @@
 > 在 dsh `0.1.5-rc.2` 上开发验证。一条命令装完（包自带 bundle patch，自动挂进 profile 的 bundle 层），然后重启 `dsh web` 生效：
 
 ```sh
-# 从 npm 安装
+# 从 npm 安装（推荐）
 dsh plugin --profile web add dsh-plugin-session-emoji -w
 
-# 或直接从 GitHub 安装（无需发 npm 版）
+# 或从 GitHub 直接安装
 dsh plugin --profile web add git+https://github.com/cholf5/dsh-plugin-session-emoji.git -w
 ```
 
